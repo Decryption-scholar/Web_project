@@ -1,72 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      perspective: 1000px; /* 添加透视效果，使旋转看起来更自然 */
+      overflow: hidden; /* 隐藏页面溢出内容 */
+    }
 
-        form {
-            width: 300px;
-            margin: 0 auto;
-        }
+    .rotatable {
+      width: 100px;
+      height: 100px;
+      background-color: #3498db;
+      margin: 50px auto;
+      transform-style: preserve-3d; /* 保持3D效果 */
+      animation: rotateAnimation 2s linear forwards; /* 指定动画结束后保持状态 */
+    }
 
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            box-sizing: border-box;
-        }
+    @keyframes rotateAnimation {
+      0% {
+        transform: rotateY(0deg);
+      }
+      100% {
+        transform: rotateY(360deg);
+      }
+    }
 
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-        }
-    </style>
+    .hidden {
+      display: none; /* 隐藏元素 */
+    }
+  </style>
+  <title>Rotation Example</title>
 </head>
 <body>
 
-<form id="loginForm">
-    <h2>Login</h2>
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
-
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
-
-    <button type="button" onclick="validateLogin()">Login</button>
+<div class="rotatable hidden" id="rotatingDiv"></div>
+<form id="myForm" onsubmit="submitForm(event)">
+  <!-- 在实际应用中添加表单元素和验证逻辑 -->
+  <button type="submit">Submit</button>
 </form>
 
 <script>
-    function validateLogin() {
-        var username = document.getElementById("username").value;
-        var password = document.getElementById("password").value;
+  function submitForm(event) {
+    event.preventDefault(); // 阻止默认表单提交行为
 
-        // Check if username and password are not empty
-        if (username === "" || password === "") {
-            alert("Username and password are required.");
-            return;
-        }
+    // 显示旋转的元素
+    const rotatingDiv = document.getElementById('rotatingDiv');
+    rotatingDiv.classList.remove('hidden');
 
-        // Check if the username and password match (replace these with your actual credentials)
-        if (username === "your_username" && password === "your_password") {
-            alert("Login successful!");
-            window.location.href = "index.html"; // Redirect to index.html
-        } else {
-            alert("Incorrect username or password. Please try again.");
-            // You might want to clear the password field for security reasons
-            document.getElementById("password").value = "";
-        }
-    }
+    // 延时1秒后跳转到另一个页面
+    setTimeout(() => {
+      window.location.href = '另一个页面的URL';
+    }, 1000);
+  }
 </script>
 
 </body>

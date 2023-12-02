@@ -74,7 +74,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px 2px;
             height: 240px;
         }
 
@@ -84,13 +83,26 @@
             flex-direction: column;
             align-items: center;
             flex-grow: 3;
+            position: relative; /* 保持相对定位 */
         }
 
         .form-group_input {
             background-color: #f4f0f0;
             border-radius: 5px;
+            position: relative; /* 保持相对定位 */
+            width: 240px; /* 确保占满整个宽度 */
+            box-sizing: border-box; /* 防止添加边框时撑大宽度 */
+            flex-grow: 2;
         }
 
+        .form-group_input label{
+            align-items: start;
+        }
+        .form-group .form-group_input input {
+            width: calc(100% - 100px); /* 考虑到边框宽度，适当调整输入框宽度 */
+            box-sizing: border-box; /* 确保输入框宽度计算不包括边框 */
+            align-items: end;
+        }
         .owl {
             width: 211px;
             height: 108px;
@@ -131,129 +143,137 @@
             transform: translateX(-50px) translateY(-15px) scale(0.7);
         }
 
-        .small {
-            visibility: hidden;
-            background-color: darkseagreen;
+        .form-group small {
+            visibility: hidden; /* 初始状态下隐藏提示标签 */
+            /* position: absolute; 使提示标签相对于 .form-group 定位 */
+            bottom: -25px; /* 调整提示标签的位置 */
+            width: 100%; /* 确保占满整个宽度 */
+            text-align: center;
+            flex-grow: 1;
         }
     </style>
 </head>
 
 <body>
     <div class="lg_bgrond">
-        <!-- Owl 元素的 HTML 结构移到一个单独的文件或模块中 -->
-        <div class="owl" id="owl">
-            <div class="hand"></div>
-            <div class="hand hand-r"></div>
-            <div class="arms">
-                <div class="arm"></div>
-                <div class="arm arm-r"></div>
-            </div>
-        </div>
-        <div class="box_lg">
-            <div class="box_lg_title">
-                <p style="padding-top: 20px;">一个社区</p>
-                <h3>欢迎登陆</h3>
-            </div>
-            <div class="box_lg_content">
-                <!-- 使用 label 标签的 for 属性来关联输入框，提升可访问性 -->
-                <form id="form" method="post">
-                    <div class="form_box">
-                        <!-- 使用 label 标签提升可访问性 -->
-                        <div class="form-group">
-                            <div class="form-group_input">
-                                <label for="exampleInputEmail1">用户名：</label>&nbsp;
-                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                    placeholder="请输入用户名" name="username">
-                            </div>
-                            <div><small class="small" id="sml1">message</small></div>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-group_input">
-                                <label for="exampleInputPassword1">密  码： </label>&nbsp;&nbsp;
-                                <input type="password" class="form-control" id="password" placeholder="请输入密码"
-                                    name="password">
-                            </div>
-                            <div><small class="small" id="sml2">message</small></div>
-                        </div>
-                        <!-- 使用 type="button" 防止误提交表单 -->
-                        <button type="submit" class="btn btn-primary">登录</button>
-                    </div>
-                </form>
-            </div>
+    <!-- Owl 元素的 HTML 结构移到一个单独的文件或模块中 -->
+    <div class="owl" id="owl">
+        <div class="hand"></div>
+        <div class="hand hand-r"></div>
+        <div class="arms">
+            <div class="arm"></div>
+            <div class="arm arm-r"></div>
         </div>
     </div>
+    <div class="box_lg">
+        <div class="box_lg_title">
+            <p style="padding-top: 20px;">一个社区</p>
+            <h3>欢迎登陆</h3>
+        </div>
+        <div class="box_lg_content">
+            <!-- 使用 label 标签的 for 属性来关联输入框，提升可访问性 -->
+            <form id="form" method="post">
+                <div class="form_box">
+                    <!-- 使用 label 标签提升可访问性 -->
+                    <div class="form-group">
+                        <div class="form-group_input">
+                            <label for="exampleInputEmail1">用户名：</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                placeholder="请输入用户名" name="username">
+                        </div>
+                        <div><small class="small" id="sml1">message</small></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group_input">
+                            <label for="exampleInputPassword1">密  码： </label>
+                            <input type="password" class="form-control" id="password" placeholder="请输入密码"
+                                name="password">
+                        </div>
+                        <div><small class="small" id="sml2">message</small></div>
+                    </div>
+                    <!-- 使用 type="button" 防止误提交表单 -->
+                    <button type="submit" class="btn btn-primary">登录</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
-    <script type="text/javascript">
+<script type="text/javascript">
     // 当文档加载完成时执行
     document.addEventListener("DOMContentLoaded", function () {
-    // 获取表单元素
-    const form = document.getElementById("form");
+        // 获取表单元素
+        const form = document.getElementById("form");
 
-    // 监听表单提交事件
-    form.addEventListener("submit", function (e) {
-        // 阻止默认的表单提交行为
-        e.preventDefault();
-        // 调用验证函数
-        checkInputs();
-    });
+        // 监听表单提交事件
+        form.addEventListener("submit", function (e) {
+            // 阻止默认的表单提交行为
+            e.preventDefault();
+            // 调用验证函数
+            checkInputs();
+        });
 
-    // 验证表单输入的函数
-    function checkInputs() {
-        // 获取用户名和密码输入框元素
-        const username = document.getElementById("exampleInputEmail1");
-        const password = document.getElementById("password");
+        // 验证表单输入的函数
+        function checkInputs() {
+            // 获取用户名和密码输入框元素
+            const username = document.getElementById("exampleInputEmail1");
+            const password = document.getElementById("password");
 
-        // 获取输入框的值并去除首尾空格
-        const usernameValue = username.value.trim();
-        const passwordValue = password.value.trim();
+            // 获取输入框的值并去除首尾空格
+            const usernameValue = username.value.trim();
+            const passwordValue = password.value.trim();
 
-        // 验证用户名是否为空
-        if (usernameValue === "") {
-        setErrorFor(username, "用户名不能为空", "sml1");
-        } else {
-        setSuccessFor(username, "sml1");
+            // 验证用户名和密码是否为空
+            if (usernameValue === "" || passwordValue === "") {
+                // 如果有任一输入框为空，显示相应的错误提示
+                if (usernameValue === "") {
+                    setErrorFor(username, "用户名不能为空", "sml1");
+                } else {
+                    setSuccessFor(username, "sml1");
+                }
+
+                if (passwordValue === "") {
+                    setErrorFor(password, "密码不能为空", "sml2");
+                } else {
+                    setSuccessFor(password, "sml2");
+                }
+            } else {
+                // 如果用户名和密码均不为空，验证成功，跳转到index.html页面
+                window.location.href = "index.html";
+            }
         }
 
-        // 验证密码是否为空
-        if (passwordValue === "") {
-        setErrorFor(password, "密码不能为空", "sml2");
-        } else {
-        setSuccessFor(password, "sml2");
+        // 当输入验证失败时设置错误状态的函数
+        function setErrorFor(input, message, id) {
+            const formControl = input.parentElement.parentElement;
+            // 设置表单控件的类，以显示错误状态
+            formControl.className = "form-group error";
+            // 获取小提示元素并设置错误信息
+            const small = formControl.querySelector("small");
+            small.innerText = message;
+            // 显示错误提示
+            document.getElementById(id).style.visibility = "visible";
+            // 移除成功状态，添加错误状态
+            formControl.classList.remove("success");
+            formControl.classList.add("error");
         }
-    }
 
-    // 当输入验证失败时设置错误状态的函数
-    function setErrorFor(input, message, id) {
-        const formControl = input.parentElement;
-        // 设置表单控件的类，以显示错误状态
-        formControl.className = "form-group error";
-        // 获取小提示元素并设置错误信息
-        const small = formControl.querySelector("small");
-        small.innerText = message;
-        // 显示错误提示
-        document.getElementById(id).style.visibility = "visible";
-        // 移除成功状态，添加错误状态
-        formControl.classList.remove("success");
-        formControl.classList.add("error");
-    }
-
-    // 当输入验证成功时设置成功状态的函数
-    function setSuccessFor(input, id) {
-        const formControl = input.parentElement;
-        // 设置表单控件的类，以显示成功状态
-        formControl.className = "form-group success";
-        // 获取小提示元素并清空错误信息
-        const small = formControl.querySelector("small");
-        small.innerText = "";
-        // 隐藏错误提示
-        document.getElementById(id).style.visibility = "hidden";
-        // 移除错误状态，添加成功状态
-        formControl.classList.remove("error");
-        formControl.classList.add("success");
-    }
+        // 当输入验证成功时设置成功状态的函数
+        function setSuccessFor(input, id) {
+            const formControl = input.parentElement.parentElement;
+            // 设置表单控件的类，以显示成功状态
+            formControl.className = "form-group success";
+            // 获取小提示元素并清空错误信息 
+            const small = formControl.querySelector("small");
+            small.innerText = "";
+            // 隐藏错误提示
+            document.getElementById(id).style.visibility = "hidden";
+            // 移除错误状态，添加成功状态
+            formControl.classList.remove("error");
+            formControl.classList.add("success");
+        }
     });
-
-    </script>
+</script>
 </body>
 
 </html>
