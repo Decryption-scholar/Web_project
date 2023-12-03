@@ -1,11 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;  /* 去除默认的外边距 */
+      background-color: burlywood;
+      display: flex;
+      flex-direction: column;
+    }
+    .idx{
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      width: 100%;
+      background-color: darkgray;
+    }
+    .index_headr{
+      width: 100%;
+      height: 100px;
+      background-color :aquamarine;
+    }
+    .index_bodyr{
+      flex: 1;
+      width: 100%;
+      height: calc(100% - 200px); /* 使用 calc() 函数进行计算 */
+      background-color: red;
+    }
+    .index_footr{
+        width: 100%;
+        height: 100px;
+        background-color: rgb(88, 60, 27);
+    }
+    .ind_Carousel{
+      width: 100%;
+      height: 200px;
+     background-color: gold;
+     padding: 19px 0 0 0;
+    }
+    .indx_Crptc{
+      width: 80%;
+      height: 180px;
+      background-color: aqua;
+      margin: 0 auto;
+    }
+    .idx_theme{
+        width: 80%;
+        padding: 30px 0 0 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        background-color: darkorchid;
+        margin: 0 auto; /* 水平居中 */
+    }
+    .idx-theme-item {
+      width: 350px; /* 设置为 45% 以确保每行最多显示两个，并留有一些间隙 */
+      margin: 10px;
+      text-align: center;
+      border: 1px solid #ddd; /* 边框以示例样式 */
+      padding: 10px;
+    }
+  </style>
 </head>
 <body>
-    
+    <div class="idx">
+      <div class="index_headr">1</div>
+      <div class="index_bodyr">
+        <div class="ind_Carousel">
+          <div class="indx_Crptc">轮播图</div>
+        </div>
+        <!-- 列表数组 -->
+        <div class="idx_theme" id="idx-themeContainer"></div>
+      </div>
+      <div class="index_footr">3</div>
+    </div>
+
+    <script>
+        // 定义视频数据数组
+        var videoData = [
+            // 添加更多视频信息
+          { title: 'Video 1', imageUrl: 'https://placekitten.com/200/150', link: 'page1.html' },
+          { title: 'Video 2', imageUrl: 'https://placekitten.com/200/150', link: 'page2.html' },
+          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
+          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
+          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
+          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
+          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
+          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
+          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
+          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
+          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
+          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
+          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
+          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
+          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
+          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
+          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
+          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
+          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
+          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
+          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
+        ];
+      
+        // 获取存储视频元素的容器
+        var idx_themeContainer = document.getElementById('idx-themeContainer');
+      
+        // 遍历视频数据数组
+        videoData.forEach(function(video) {
+          // 创建视频元素
+          var videoElement = document.createElement('div');
+          videoElement.className = 'idx-theme-item';
+      
+          
+          // 创建图片元素
+          var imageElement = document.createElement('img');
+          imageElement.src = video.imageUrl;
+          imageElement.alt = video.title;
+          imageElement.style.height = "250px";
+          // 创建标题元素
+          var titleElement = document.createElement('h3');
+          titleElement.textContent = video.title;
+          
+          // 将标题和图片元素添加到视频元素中
+          videoElement.appendChild(imageElement);
+          videoElement.appendChild(titleElement);
+      
+          // 为视频元素添加点击事件，实现页面跳转
+          videoElement.addEventListener('click', function() {
+            window.location.href = video.link;
+          });
+      
+          // 将视频元素添加到容器中
+          idx_themeContainer.appendChild(videoElement);
+        });
+      </script>
 </body>
 </html>
