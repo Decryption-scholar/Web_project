@@ -7,7 +7,7 @@
   <style>
     body, html {
       height: 100%;
-      margin: 0; /* 去除默认的外边距 */
+      margin: 0;  /* 去除默认的外边距 */
       background-color: burlywood;
       display: flex;
       flex-direction: column;
@@ -36,31 +36,60 @@
         background-color: rgb(88, 60, 27);
     }
     .ind_Carousel{
+      overflow: hidden;
+
+      position: relative;
       width: 100%;
-      height: 200px;
-     background-color: gold;
-     padding: 19px 0 0 0;
+      height: 300px;
+      background-color: gold;
+      padding: 19px 0 0 0;
     }
     .indx_Crptc{
       width: 80%;
-      height: 180px;
+      height: 280px;
+      position: absolute;
       background-color: aqua;
       margin: 0 auto;
     }
+    .indx_Crptcl_item{
+      animation: scroll 15s linear infinite;
+      display: inline-block;
+      margin: 0 20px 0 20px;
+      box-sizing: border-box;
+    }
     .idx_theme{
         width: 80%;
+        padding: 30px 0 0 0;
         display: flex;
+        color: cyan;
         flex-wrap: wrap;
         justify-content: center;
         background-color: darkorchid;
         margin: 0 auto; /* 水平居中 */
     }
     .idx-theme-item {
-      width: 350px; /* 设置为 45% 以确保每行最多显示两个，并留有一些间隙 */
+      width: 350px; 
       margin: 10px;
       text-align: center;
-      border: 1px solid #ddd; /* 边框以示例样式 */
+      border: 1px solid #ddd; /* 边框样式 */
       padding: 10px;
+    }
+    #carousel-container {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    /* #carousel {
+      white-space: nowrap;
+      animation: scroll 20s linear infinite;
+    } */
+    @keyframes scroll {
+      0% {
+        transform: translateX(100%);
+        }
+      100% {
+        transform: translateX(-100%);
+        }
     }
   </style>
 </head>
@@ -69,7 +98,7 @@
       <div class="index_headr">1</div>
       <div class="index_bodyr">
         <div class="ind_Carousel">
-          <div class="indx_Crptc">轮播图</div>
+          <div class="indx_Crptc" id="indx_Crptc">轮播图</div>
         </div>
         <!-- 列表数组 -->
         <div class="idx_theme" id="idx-themeContainer"></div>
@@ -80,30 +109,91 @@
     <script>
         // 定义视频数据数组
         var videoData = [
-          { title: 'Video 1', imageUrl: 'https://placekitten.com/200/150', link: 'page1.html' },
-          { title: 'Video 2', imageUrl: 'https://placekitten.com/200/150', link: 'page2.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          // 添加更多视频信息...
+            // 添加更多视频信息
+          { title: 'Apex', imageUrl: 'imgs/apex.jpg', link: 'page1.html' },
+          { title: '堡垒之夜', imageUrl: 'imgs/baoleizhiye.jpg', link: 'page2.html' },
+          { title: 'CSGO', imageUrl: 'imgs/csgo.jpg', link: 'page3.html' },
+          { title: '刀塔2', imageUrl: 'imgs/daota.jpg', link: 'page3.html' },
+          { title: '剑网3', imageUrl: 'imgs/jianwnag3.jpg', link: 'page3.html' },
+          { title: '艾尔登法环', imageUrl: 'imgs/laotouhuan.jpg', link: 'page3.html' },
+          { title: '英雄联盟手游', imageUrl: 'imgs/lolMtupian.jpg', link: 'page3.html' },
+          { title: '英雄联盟', imageUrl: 'imgs/lolPCtupian.jpg', link: 'page3.html' },
+          { title: '炉石传说', imageUrl: 'imgs/lushichuanshuo.jpg', link: 'page3.html' },
+          { title: '逆水寒', imageUrl: 'imgs/nishuihan.jpg', link: 'page3.html' },
+          { title: '上古卷轴', imageUrl: 'imgs/shanggujuanzhou.jpg', link: 'page3.html' },
+          { title: '守望先锋', imageUrl: 'imgs/shouwangxianfeng.jpg', link: 'page3.html' },
+          { title: '星际战甲', imageUrl: 'imgs/zhanjia.jpg', link: 'page3.html' },
+          { title: '原神', imageUrl: 'imgs/yuanshen.jpg', link: 'page3.html' },
+          { title: '怪物猎人', imageUrl: 'imgs/guanwulieren.jpg', link: 'page3.html' }
         ];
-      
+
+          // 复制前几项到末尾以实现循环
+        var numberOfItemsToDuplicate = 3;
+        videoData = videoData.concat(videoData.slice(0, numberOfItemsToDuplicate));
+
+        // 动态生成轮播项
+        var carouselContainer = document.getElementById('indx_Crptc');
+        videoData.forEach(function (video) {
+          var item = document.createElement('div');
+          item.className = 'indx_Crptcl_item';
+          var as = document.createElement('a');
+          as.href = video.link;
+          var imgs = document.createElement('img');
+          imgs.src = video.imageUrl;
+          imgs.alt = video.title;
+          imgs.style.height = '250px';
+          imgs.style.width = '345px';
+          as.appendChild(imgs);
+          item.appendChild(as);
+          carouselContainer.appendChild(item);
+        });
+
+        // 添加轮播逻辑
+        var currentIndex = 0;
+        var totalItems = videoData.length;
+        var itemsPerPage = 3; // 根据想要一次显示的项目数量调整此值
+
+        function nextSlide() {
+          currentIndex = (currentIndex + itemsPerPage) % totalItems;
+          updateCarousel();
+        }
+
+        function prevSlide() {
+          currentIndex = (currentIndex - itemsPerPage + totalItems) % totalItems;
+          updateCarousel();
+        }
+
+        function updateCarousel() {
+          var items = document.querySelectorAll('.indx_Crptcl_item');
+          items.forEach(function (item, index) {
+            var newIndex = (currentIndex + index) % totalItems;
+            var video = videoData[newIndex];
+            var as = item.querySelector('a');
+            var imgs = as.querySelector('img');
+            as.href = video.link;
+            imgs.src = video.imageUrl;
+            imgs.alt = video.title;
+          });
+        }
+
+        // 添加定时器以自动播放
+        var autoplayInterval = 3000; // 设置自动播放间隔时间，单位为毫秒
+        var autoplayTimer = setInterval(nextSlide, autoplayInterval);
+
+        // 停止自动播放的方法
+        function stopAutoplay() {
+          clearInterval(autoplayTimer);
+        }
+
+        // 当鼠标悬停在轮播图上时停止自动播放
+        carouselContainer.addEventListener('mouseenter', stopAutoplay);
+
+        // 当鼠标离开轮播图时恢复自动播放
+        carouselContainer.addEventListener('mouseleave', function () {
+          autoplayTimer = setInterval(nextSlide, autoplayInterval);
+        });
+
+
         // 获取存储视频元素的容器
         var idx_themeContainer = document.getElementById('idx-themeContainer');
       
@@ -118,6 +208,9 @@
           var imageElement = document.createElement('img');
           imageElement.src = video.imageUrl;
           imageElement.alt = video.title;
+          imageElement.style.height = "250px";
+          imageElement.style.width = "345px";
+
           // 创建标题元素
           var titleElement = document.createElement('h3');
           titleElement.textContent = video.title;

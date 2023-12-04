@@ -37,31 +37,43 @@
     }
     .ind_Carousel{
       width: 100%;
-      height: 200px;
-     background-color: gold;
-     padding: 19px 0 0 0;
+      height: 380px;
+      background-color: gold;
+      padding: 23px 0 0 0;
     }
     .indx_Crptc{
-      width: 80%;
-      height: 180px;
+      width: 1300px;
+      height: 350px;
+      overflow: hidden;
       background-color: aqua;
       margin: 0 auto;
     }
     .idx_theme{
-        width: 80%;
+        width: 1450px;
         padding: 30px 0 0 0;
         display: flex;
+        color: cyan;
         flex-wrap: wrap;
         justify-content: center;
         background-color: darkorchid;
         margin: 0 auto; /* 水平居中 */
     }
     .idx-theme-item {
-      width: 350px; /* 设置为 45% 以确保每行最多显示两个，并留有一些间隙 */
-      margin: 10px;
+      width: 350px; 
+      margin: 25px;
       text-align: center;
-      border: 1px solid #ddd; /* 边框以示例样式 */
+      border: 1px solid #ddd; /* 边框样式 */
       padding: 10px;
+    }
+    #idx_Crpt_a{
+      padding: 0 60px 0 60px;
+    }
+    #idx_Crpt_img{
+      width: 1200px;
+    }
+    #carousel-container {
+      width: 100%;
+      overflow: hidden;
     }
   </style>
 </head>
@@ -70,7 +82,12 @@
       <div class="index_headr">1</div>
       <div class="index_bodyr">
         <div class="ind_Carousel">
-          <div class="indx_Crptc">轮播图</div>
+          <div class="ind_Carousel_box">
+            <div class="indx_Crptc" id="indx_Crptc">
+              <a id="idx_Crpt_a"><img id="idx_Crpt_img" src="" alt=""></a>
+            </div>
+
+          </div>
         </div>
         <!-- 列表数组 -->
         <div class="idx_theme" id="idx-themeContainer"></div>
@@ -80,31 +97,60 @@
 
     <script>
         // 定义视频数据数组
+        var Cat_picdataa = [
+            // 添加更多视频信息
+          { title: 'Apex', imageUrl: 'imgs/apex.jpg', link: 'page1.html' },
+          { title: '堡垒之夜', imageUrl: 'imgs/baoleizhiye.jpg', link: 'page2.html' },         
+          { title: '剑网3', imageUrl: 'imgs/jianwnag3.jpg', link: 'page3.html' },
+          { title: '英雄联盟', imageUrl: 'imgs/lolPCtupian.jpg', link: 'page3.html' },
+          { title: '逆水寒', imageUrl: 'imgs/nishuihan.jpg', link: 'page3.html' },
+          { title: '上古卷轴', imageUrl: 'imgs/shanggujuanzhou.jpg', link: 'page3.html' },
+          { title: '守望先锋', imageUrl: 'imgs/shouwangxianfeng.jpg', link: 'page3.html' },
+          { title: '星际战甲', imageUrl: 'imgs/zhanjia.jpg', link: 'page3.html' },
+          { title: '原神', imageUrl: 'imgs/yuanshen.jpg', link: 'page3.html' },
+        ];
+        
+        //轮播图实现
+        var idx_Crpt_act = 0;
+        function updata_act_Cat(){
+          //更新图片
+          var idx_Cat_pic = document.getElementById("idx_Crpt_img");
+          idx_Cat_pic.src = Cat_picdataa[idx_Crpt_act].imageUrl;
+
+          //更新标题
+          var idx_Cat_title = document.getElementById("idx_Crpt_a");
+          idx_Cat_title.href = Cat_picdataa[idx_Crpt_act].link;
+          idx_Cat_title.alt = Cat_picdataa[idx_Crpt_act].title;
+
+          // 索引，如果达到数组末尾则重置为0
+          idx_Crpt_act = (idx_Crpt_act + 1) % Cat_picdataa.length;
+        }
+
+        //初始化轮播图
+        updata_act_Cat();
+
+        // 设置定时器，每3秒更新一次图片
+        setInterval(updata_act_Cat, 3000);
+
+        // 定义视频数据数组
         var videoData = [
             // 添加更多视频信息
-          { title: 'Video 1', imageUrl: 'https://placekitten.com/200/150', link: 'page1.html' },
-          { title: 'Video 2', imageUrl: 'https://placekitten.com/200/150', link: 'page2.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
-          { title: 'Video 3', imageUrl: 'https://placekitten.com/200/150', link: 'page3.html' },
+          { title: 'Apex', imageUrl: 'imgs/apex.jpg', link: 'page1.html' },
+          { title: '堡垒之夜', imageUrl: 'imgs/baoleizhiye.jpg', link: 'page2.html' },
+          { title: 'CSGO', imageUrl: 'imgs/csgo.jpg', link: 'page3.html' },
+          { title: '刀塔2', imageUrl: 'imgs/daota.jpg', link: 'page3.html' },
+          { title: '剑网3', imageUrl: 'imgs/jianwnag3.jpg', link: 'page3.html' },
+          { title: '艾尔登法环', imageUrl: 'imgs/laotouhuan.jpg', link: 'page3.html' },
+          { title: '英雄联盟手游', imageUrl: 'imgs/lolMtupian.jpg', link: 'page3.html' },
+          { title: '英雄联盟', imageUrl: 'imgs/lolPCtupian.jpg', link: 'page3.html' },
+          { title: '炉石传说', imageUrl: 'imgs/lushichuanshuo.jpg', link: 'page3.html' },
+          { title: '逆水寒', imageUrl: 'imgs/nishuihan.jpg', link: 'page3.html' },
+          { title: '上古卷轴', imageUrl: 'imgs/shanggujuanzhou.jpg', link: 'page3.html' },
+          { title: '守望先锋', imageUrl: 'imgs/shouwangxianfeng.jpg', link: 'page3.html' },
+          { title: '星际战甲', imageUrl: 'imgs/zhanjia.jpg', link: 'page3.html' },
+          { title: '原神', imageUrl: 'imgs/yuanshen.jpg', link: 'page3.html' },
+          { title: '怪物猎人', imageUrl: 'imgs/guanwulieren.jpg', link: 'page3.html' }
         ];
-      
         // 获取存储视频元素的容器
         var idx_themeContainer = document.getElementById('idx-themeContainer');
       
@@ -120,6 +166,8 @@
           imageElement.src = video.imageUrl;
           imageElement.alt = video.title;
           imageElement.style.height = "250px";
+          imageElement.style.width = "345px";
+
           // 创建标题元素
           var titleElement = document.createElement('h3');
           titleElement.textContent = video.title;
