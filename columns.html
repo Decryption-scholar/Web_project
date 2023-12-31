@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主页分栏</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <style>
+        .index_bodyr {
+            overflow: auto;
+        }
+
+        
+
+        body {
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="index_bodyr">
+        <div class="ind_Carousel">
+            <div class="ind_Carousel_box">
+                <div class="indx_Crptc" id="indx_Crptc">
+                    <a id="idx_Crpt_a"><img id="idx_Crpt_img" src="" alt=""></a>
+                </div>
+            </div>
+        </div>
+        <!-- 列表数组 -->
+        <div class="idx_theme" id="idx-themeContainer"></div>
+    </div>
+    <script>
+        // 定义视频数据数组
+        var Cat_picdataa = [
+            // 添加更多视频信息
+            { title: 'Apex', imageUrl: 'imgs/apex.jpg', link: 'page1.html' },
+            { title: '堡垒之夜', imageUrl: 'imgs/baoleizhiye.jpg', link: 'page2.html' },
+            { title: '剑网3', imageUrl: 'imgs/jianwnag3.jpg', link: 'page3.html' },
+            { title: '英雄联盟', imageUrl: 'imgs/lolPCtupian.jpg', link: 'page3.html' },
+            { title: '逆水寒', imageUrl: 'imgs/nishuihan.jpg', link: 'page3.html' },
+            { title: '上古卷轴', imageUrl: 'imgs/shanggujuanzhou.jpg', link: 'page3.html' },
+            { title: '守望先锋', imageUrl: 'imgs/shouwangxianfeng.jpg', link: 'page3.html' },
+            { title: '星际战甲', imageUrl: 'imgs/zhanjia.jpg', link: 'page3.html' },
+            { title: '原神', imageUrl: 'imgs/yuanshen.jpg', link: 'page3.html' },
+        ];
+
+        //轮播图实现
+        var idx_Crpt_act = 0;
+        function updata_act_Cat() {
+            //更新图片
+            var idx_Cat_pic = document.getElementById("idx_Crpt_img");
+            idx_Cat_pic.src = Cat_picdataa[idx_Crpt_act].imageUrl;
+            //更新标题
+            var idx_Cat_title = document.getElementById("idx_Crpt_a");
+            idx_Cat_title.href = Cat_picdataa[idx_Crpt_act].link;
+            idx_Cat_title.alt = Cat_picdataa[idx_Crpt_act].title;
+            // 索引，如果达到数组末尾则重置为0
+            idx_Crpt_act = (idx_Crpt_act + 1) % Cat_picdataa.length;
+        }
+
+        //初始化轮播图
+        updata_act_Cat();
+
+        // 设置定时器，每3秒更新一次图片
+        setInterval(updata_act_Cat, 3000);
+
+        // 定义视频数据数组
+        var videoData = [
+            // 添加更多视频信息
+            { title: 'Apex', imageUrl: 'imgs/apex.jpg', link: 'page1.html' },
+            { title: '堡垒之夜', imageUrl: 'imgs/baoleizhiye.jpg', link: 'page2.html' },
+            { title: 'CSGO', imageUrl: 'imgs/csgo.jpg', link: 'page3.html' },
+            { title: '刀塔2', imageUrl: 'imgs/daota.jpg', link: 'page3.html' },
+            { title: '剑网3', imageUrl: 'imgs/jianwnag3.jpg', link: 'page3.html' },
+            { title: '艾尔登法环', imageUrl: 'imgs/laotouhuan.jpg', link: 'page3.html' },
+            { title: '英雄联盟手游', imageUrl: 'imgs/lolMtupian.jpg', link: 'page3.html' },
+            { title: '英雄联盟', imageUrl: 'imgs/lolPCtupian.jpg', link: 'page3.html' },
+            { title: '炉石传说', imageUrl: 'imgs/lushichuanshuo.jpg', link: 'page3.html' },
+            { title: '逆水寒', imageUrl: 'imgs/nishuihan.jpg', link: 'page3.html' },
+            { title: '上古卷轴', imageUrl: 'imgs/shanggujuanzhou.jpg', link: 'page3.html' },
+            { title: '守望先锋', imageUrl: 'imgs/shouwangxianfeng.jpg', link: 'page3.html' },
+            { title: '星际战甲', imageUrl: 'imgs/zhanjia.jpg', link: 'page3.html' },
+            { title: '原神', imageUrl: 'imgs/yuanshen.jpg', link: 'page3.html' },
+            { title: '怪物猎人', imageUrl: 'imgs/guanwulieren.jpg', link: 'page3.html' }
+        ];
+        // 获取存储视频元素的容器
+        var idx_themeContainer = document.getElementById('idx-themeContainer');
+
+        // 遍历视频数据数组
+        videoData.forEach(function (video) {
+            // 创建视频元素
+            var videoElement = document.createElement('div');
+            videoElement.className = 'idx-theme-item';
+
+
+            // 创建图片元素
+            var imageElement = document.createElement('img');
+            imageElement.src = video.imageUrl;
+            imageElement.alt = video.title;
+            imageElement.style.height = "250px";
+            imageElement.style.width = "345px";
+
+            // 创建标题元素
+            var titleElement = document.createElement('h3');
+            titleElement.textContent = video.title;
+
+            // 将标题和图片元素添加到视频元素中
+            videoElement.appendChild(imageElement);
+            videoElement.appendChild(titleElement);
+
+            // 为视频元素添加点击事件，实现页面跳转
+            videoElement.addEventListener('click', function () {
+                window.location.href = video.link;
+            });
+
+            // 将视频元素添加到容器中
+            idx_themeContainer.appendChild(videoElement);
+        });
+        const menuup = document.querySelectorAll('.menu_2 li');
+
+        menuup.forEach((item, index) => {
+            setTimeout(() => {
+                item.style.transitionDelay = `${index * 0.2}s`;
+                item.style.opacity = '1';
+            }, index * 300);
+        });
+    </script>
+</body>
+
+</html>

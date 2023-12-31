@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人信息</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="profile">
+        <div class="profile-header">
+            <h2>个人信息</h2>
+            <!-- 头像显示 -->
+            <img id="avatar" src="" alt="Avatar">
+            <input type="file" id="avatarInput">
+        </div>
+        <div class="profile-details">
+            <!-- 显示用户信息 -->
+            <p>用户名: <span id="username"></span></p>
+            <p>邮箱: <span id="email"></span></p>
+            <p>积分: <span id="points"></span></p>
+            <p>最后登录时间: <span id="lastLoginTime"></span></p>
+        </div>
+        <div class="change-section">
+            <!-- 更改用户名 -->
+            <input type="text" id="newUsername" placeholder="新用户名">
+            <button id="changeUsername">更改用户名</button>
+            <!-- 更改密码 -->
+            <input type="password" id="oldPassword" placeholder="旧密码">
+            <input type="password" id="newPassword" placeholder="新密码">
+            <input type="password" id="confirmNewPassword" placeholder="确认新密码">
+            <button id="changePassword">更改密码</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // 获取已登录用户信息
+            const loggedInUser = JSON.parse(localStorage.getItem('usrData'));
+            console.log(localStorage.getItem('loggedInUser'))
+            // 填充用户信息到页面
+            document.getElementById('avatar').src = loggedInUser.avatar;
+            document.getElementById('username').innerText = loggedInUser.username;
+            document.getElementById('email').innerText = loggedInUser.email;
+            document.getElementById('points').innerText = loggedInUser.integralnub;
+            document.getElementById('lastLoginTime').innerText = loggedInUser.lastLoginTime;
+
+            // 更改用户名
+            document.getElementById('changeUsername').addEventListener('click', function () {
+                const newUsername = document.getElementById('newUsername').value;
+                // 更新本地存储的用户名
+                loggedInUser.username = newUsername;
+                localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+                // 更新页面显示
+                document.getElementById('username').innerText = newUsername;
+                document.getElementById('newUsername').value = '';
+            });
+
+            // 更改密码
+            document.getElementById('changePassword').addEventListener('click', function () {
+                const oldPassword = document.getElementById('oldPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+                const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+                // 检查旧密码是否正确
+                if (oldPassword === loggedInUser.password && newPassword === confirmNewPassword) {
+                    // 更新本地存储的密码
+                    loggedInUser.password = newPassword;
+                    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+                    // 清空输入框
+                    document.getElementById('oldPassword').value = '';
+                    document.getElementById('newPassword').value = '';
+                    document.getElementById('confirmNewPassword').value = '';
+                    alert('密码更改成功！');
+                } else {
+                    alert('旧密码错误或新密码不匹配！');
+                }
+            });
+
+            // 更改头像
+            document.getElementById('avatarInput').addEventListener('change', function (event) {
+                const file = event.target.files[0];
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    // 更新本地存储的头像
+                    loggedInUser.avatar = e.target.result;
+                    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+                    // 更新页面显示
+                    document.getElementById('avatar').src = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            });
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,154 @@
+/* 使用通用字体 */
+* {
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica,
+    Microsoft YaHei, PingFang SC, Hiragino Sans GB, Arial, sans-serif;
+}
+
+body {
+  /* 使用背景图 */
+  background-image: url("../imgs/tp_login.jpeg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: 0 auto;
+  height: 100vh;
+}
+
+.box_lg {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  margin-top: 143px;
+  width: 340px;
+  height: 400px;
+  background-color: silver;
+  border-radius: 10px;
+}
+
+.box_lg_title {
+  text-align: center;
+  height: 100px;
+  flex-grow: 2;
+}
+
+.box_lg_content {
+  flex-grow: 5;
+  color: #663d3d;
+  text-align: center;
+}
+
+.btn-primary {
+  height: 35px;
+  width: 80px;
+  color: #fff;
+  background-color: #f57d89;
+  border-radius: 6px;
+  flex-grow: 1;
+  cursor: pointer;
+  border-style: none;
+}
+
+.btn-container {
+  display: flex; /* 使用 Flexbox 布局 */
+  justify-content: center; /* 水平居中 */
+  margin-top: 20px; /* 调整上边距 */
+}
+
+.btn-container button {
+  margin: 0 5px; /* 为按钮添加间距 */
+}
+.form-control {
+  border-radius: 5px;
+  height: 25px;
+  border-style: none;
+  background-color: rgb(226, 229, 236);
+}
+
+.form_box label {
+  height: 30px;
+  font-weight: bolder;
+}
+
+.form_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 180px;
+}
+
+.form_box .form-group {
+  margin: 10px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 3;
+  position: relative; /* 保持相对定位 */
+}
+
+.form-group_input {
+  background-color: #f4f0f0;
+  border-radius: 5px;
+  position: relative; /* 保持相对定位 */
+  width: 240px; /* 确保占满整个宽度 */
+  box-sizing: border-box; /* 防止添加边框时撑大宽度 */
+  flex-grow: 2;
+}
+
+.form-group_input label {
+  align-items: start;
+}
+.form-group .form-group_input input {
+  width: calc(100% - 100px); /* 考虑到边框宽度，适当调整输入框宽度 */
+  box-sizing: border-box; /* 确保输入框宽度计算不包括边框 */
+  align-items: end;
+}
+.owl {
+  width: 211px;
+  height: 108px;
+  /* 背景图片 */
+  background: url("../imgs/owl.png") no-repeat;
+  /* 绝对定位 */
+  position: absolute;
+  top: 50px;
+  /* 水平居中 */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.owl .hand {
+  width: 34px;
+  height: 34px;
+  border-radius: 40px;
+  background-color: #472d20;
+  /* 绝对定位 */
+  position: absolute;
+  left: 12px;
+  bottom: -8px;
+  /* 沿Y轴缩放0.6倍（压扁） */
+  transform: scaleY(0.5);
+  /* 动画过渡 */
+  transition: 0.3s ease-out;
+}
+
+.owl .hand.hand-r {
+  left: 170px;
+}
+
+.owl.password .hand {
+  transform: translateX(50px) translateY(-15px) scale(0.7);
+}
+
+.owl.password .hand.hand-r {
+  transform: translateX(-50px) translateY(-15px) scale(0.7);
+}
+
+.form-group small {
+  visibility: hidden; /* 初始状态下隐藏提示标签 */
+  /* position: absolute; 使提示标签相对于 .form-group 定位 */
+  bottom: -25px; /* 调整提示标签的位置 */
+  width: 100%; /* 确保占满整个宽度 */
+  text-align: center;
+  flex-grow: 1;
+}

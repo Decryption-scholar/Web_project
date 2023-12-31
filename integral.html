@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>社区任务</title>
+    <style>
+        b {
+            font-weight: bold;
+        }
+
+        .badyer {
+            flex: 1;
+            width: 100%;
+            height: calc(100% - 200px);
+            /* 使用 calc() 函数进行计算 */
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>社区任务</h1>
+    <div class="badyer">
+        <div class="mission">
+            <b>1.新任务选择</b>
+            <br>
+            "选择你要进行的任务项目"
+            <b>2.进行中任务</b>
+            <br>
+            "在进行中任务项目,按期限及规定完成后可以领取奖励"
+            <b>3.已完成任务</b>
+            <br>
+            "领取完成奖励,会出现你已领取完成"
+            <b>4.已失败任务</b>
+            <br>
+            "按期限及规定未完成任务,就显示你未完成任务项目"
+        </div>
+        <div class="intbox">
+            <div class="signbox">
+                <img src="imgs/day.png">
+                <p>每日SP+5的日常。</p>
+                <button id="daysign">每日签到</button>
+            </div>
+            <div class="signbox">
+                <img src="imgs/week.png">
+                <p>无所事事的周常</p>
+                <button id="weeksign">每周签到</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // 获取存储的用户信息
+            const usrData = JSON.parse(localStorage.getItem('usrData')) || [];
+
+            // 获取签到按钮
+            const daysignBtn = document.getElementById('daysign');
+            const weeksignBtn = document.getElementById('weeksign');
+
+            // 模拟已登录用户
+            const logInUser = usrData.find(user => user.logSta === 1);
+
+            if (logInUser) {
+                // 获取当前时间
+                const currtime = new Date().getDate();
+
+                daysignBtn.addEventListener('click', function () {
+                    if (logInUser.dayT !== currtime) {
+                        logInUser.integralnub += 5;
+                        logInUser.dayT = currtime;
+                        updateinegral(usrData);
+                        alert('每日签到成功！积分增加5');
+                    } else {
+                        alert('今天已经签到过了！');
+                    }
+                });
+
+                weeksignBtn.addEventListener('click', function () {
+                    if (logInUser.weekT !== currtime) {
+                        logInUser.integralnub += 15;
+                        logInUser.weekT = currtime;
+                        updateinegral(usrData);
+                        alert('每周签到成功！积分增加15');
+                    } else {
+                        alert('本周已经签到过了！');
+                    }
+                });
+            } else{
+                alert('请先登录！');
+                // 如果用户未登录，可进行登录跳转等操作
+            }
+            // 更新本地存储的用户数据
+            function updateinegral(data) {
+                localStorage.setItem('usrData', JSON.stringify(data));
+            }
+        });
+
+    </script>
+</body>
+
+</html>

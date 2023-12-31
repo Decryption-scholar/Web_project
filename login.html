@@ -2,293 +2,198 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>登录</title>
-    <style>
-        /* 使用通用字体 */
-        * {
-            font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Microsoft YaHei, PingFang SC,
-                Hiragino Sans GB, Arial, sans-serif;
-        }
-
-        body {
-            /* 使用背景图 */
-            background-image: url("imgs/tp_login.jpeg");
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            background-attachment: fixed;
-            display: flex;
-            justify-content: center;
-            align-items: 0 auto;
-            height: 100vh;
-        }
-
-        .box_lg {
-            display: flex;
-            flex-direction: column;
-            place-items: center;
-            margin-top: 143px;
-            width: 340px;
-            height: 400px;
-            background-color: silver;
-            border-radius: 10px;
-        }
-
-        .box_lg_title {
-            text-align: center;
-            height: 100px;
-            flex-grow: 2;
-        }
-
-        .box_lg_content {
-            flex-grow: 5;
-            color: #663d3d;
-            text-align: center;
-        }
-
-        .btn-primary {
-            height: 65px;
-            width: 180px;
-            color: #fff;
-            background-color: #f57d89;
-            border-radius: 6px;
-            flex-grow: 1;
-            cursor: pointer;
-            border-style: none;
-        }
-
-        .form-control {
-            border-radius: 5px;
-            height: 25px;
-            border-style: none;
-            background-color: rgb(226, 229, 236);
-        }
-
-        .form_box label {
-            height: 30px;
-            font-weight: bolder;
-        }
-
-        .form_box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 240px;
-        }
-
-        .form_box .form-group {
-            margin: 25px 5px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex-grow: 3;
-            position: relative; /* 保持相对定位 */
-        }
-
-        .form-group_input {
-            background-color: #f4f0f0;
-            border-radius: 5px;
-            position: relative; /* 保持相对定位 */
-            width: 240px; /* 确保占满整个宽度 */
-            box-sizing: border-box; /* 防止添加边框时撑大宽度 */
-            flex-grow: 2;
-        }
-
-        .form-group_input label{
-            align-items: start;
-        }
-        .form-group .form-group_input input {
-            width: calc(100% - 100px); /* 考虑到边框宽度，适当调整输入框宽度 */
-            box-sizing: border-box; /* 确保输入框宽度计算不包括边框 */
-            align-items: end;
-        }
-        .owl {
-            width: 211px;
-            height: 108px;
-            /* 背景图片 */
-            background: url("imgs/owl.png") no-repeat;
-            /* 绝对定位 */
-            position: absolute;
-            top: 50px;
-            /* 水平居中 */
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .owl .hand {
-            width: 34px;
-            height: 34px;
-            border-radius: 40px;
-            background-color: #472d20;
-            /* 绝对定位 */
-            position: absolute;
-            left: 12px;
-            bottom: -8px;
-            /* 沿Y轴缩放0.6倍（压扁） */
-            transform: scaleY(0.5);
-            /* 动画过渡 */
-            transition: 0.3s ease-out;
-        }
-
-        .owl .hand.hand-r {
-            left: 170px;
-        }
-
-        .owl.password .hand {
-            transform: translateX(50px) translateY(-15px) scale(0.7);
-        }
-
-        .owl.password .hand.hand-r {
-            transform: translateX(-50px) translateY(-15px) scale(0.7);
-        }
-
-        .form-group small {
-            visibility: hidden; /* 初始状态下隐藏提示标签 */
-            /* position: absolute; 使提示标签相对于 .form-group 定位 */
-            bottom: -25px; /* 调整提示标签的位置 */
-            width: 100%; /* 确保占满整个宽度 */
-            text-align: center;
-            flex-grow: 1;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>登录</title>
+  <link rel="stylesheet" href="css/form.css" type="text/css" />
 </head>
 
 <body>
-    <div class="lg_bgrond">
+  <div class="lg_bgrond">
     <!-- Owl 元素的 HTML 结构移到一个单独的文件或模块中 -->
     <div class="owl" id="owl">
-        <div class="hand"></div>
-        <div class="hand hand-r"></div>
-        <div class="arms">
-            <div class="arm"></div>
-            <div class="arm arm-r"></div>
-        </div>
+      <div class="hand"></div>
+      <div class="hand hand-r"></div>
+      <div class="arms">
+        <div class="arm"></div>
+        <div class="arm arm-r"></div>
+      </div>
     </div>
     <div class="box_lg">
-        <div class="box_lg_title">
-            <p style="padding-top: 20px;">一个社区</p>
-            <h3>欢迎登陆</h3>
-        </div>
-        <div class="box_lg_content">
-            <!-- 使用 label 标签的 for 属性来关联输入框，提升可访问性 -->
-            <form id="form" method="post">
-                <div class="form_box">
-                    <!-- 使用 label 标签提升可访问性 -->
-                    <div class="form-group">
-                        <div class="form-group_input">
-                            <label for="exampleInputEmail1">用户名：</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                placeholder="请输入用户名" name="username">
-                        </div>
-                        <div><small class="small" id="sml1">message</small></div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-group_input">
-                            <label for="exampleInputPassword1">密  码： </label>
-                            <input type="password" class="form-control" id="password" placeholder="请输入密码"
-                                name="password">
-                        </div>
-                        <div><small class="small" id="sml2">message</small></div>
-                    </div>
-                    <!-- 使用 type="button" 防止误提交表单 -->
-                    <button type="submit" class="btn btn-primary">登录</button>
-                </div>
-            </form>
-        </div>
+      <div class="box_lg_title">
+        <p style="padding-top: 20px">一个社区</p>
+        <h3>欢迎登陆</h3>
+      </div>
+      <div class="box_lg_content">
+        <!-- 使用 label 标签的 for 属性来关联输入框，提升可访问性 -->
+        <form id="form" method="post">
+          <div class="form_box">
+            <!-- 使用 label 标签提升可访问性 -->
+            <div class="form-group">
+              <div class="form-group_input">
+                <label for="log_username">用户名：</label>
+                <input type="text" class="form-control" id="log_username" aria-describedby="emailHelp"
+                  placeholder="请输入用户名" name="username" />
+              </div>
+              <div><small class="small" id="sml1">message</small></div>
+            </div>
+            <div class="form-group">
+              <div class="form-group_input">
+                <label for="log_password">密 码： </label>
+                <input type="password" class="form-control" id="password" placeholder="请输入密码" name="password" />
+              </div>
+              <div><small class="small" id="sml2">message</small></div>
+            </div>
+            <!-- 使用 type="button" 防止误提交表单 -->
+            <div class="btn-container"> <!-- 新增一个包裹登录和注册按钮的 div -->
+              <button type="submit" value="提交" class="btn btn-primary">
+                登录
+              </button>
+              <button id="registerBtn" class="btn btn-primary">注册</button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
-</div>
-
-<script type="text/javascript">
+  </div>
+  <script>
     // 当文档加载完成时执行
     document.addEventListener("DOMContentLoaded", function () {
-        // 获取表单元素
-        const form = document.getElementById("form");
+      function getUsrData() {
+        const userData = localStorage.getItem("usrData");
+        return userData ? JSON.parse(userData) : [
+          {
+            userid: 1,
+            username: 'admin',
+            password: 'pw123456',
+            email: '123456789@qq.com',
+            avatar: '../imgs/1587867978110.jpeg',
+            logSta: 0,
+            integralnub: 0,
+            
+          }
+        ];
+      }
 
-        // 监听表单提交事件
-        form.addEventListener("submit", function (e) {
-            // 阻止默认的表单提交行为
-            e.preventDefault();
-            // 调用验证函数
-            checkInputs();
+      const usrData = getUsrData();
+      if (!localStorage.getItem("usrData")) {
+        localStorage.setItem("usrData", JSON.stringify(usrData));
+      }
+      // 获取表单元素
+      const form = document.getElementById("form");
+      // 将数据存储到 localStorage
+      localStorage.setItem("usrData", JSON.stringify(usrData));
+      // 监听表单提交事件
+      form.addEventListener("submit", function (e) {
+        // 阻止默认的表单提交行为
+        e.preventDefault();
+        // 调用验证函数
+        checkInputs();
+      });
+
+      // 验证表单输入的函数
+      function checkInputs() {
+        // 获取用户名和密码输入框元素
+        const username = document.getElementById("log_username");
+        const password = document.getElementById("password");
+
+        const usrData = getUsrData();
+        // 获取输入框的值并去除首尾空格
+        const usernameValue = username.value.trim();
+        const passwordValue = password.value.trim();
+
+        // 验证用户名和密码是否为空
+        if (usernameValue === "" || passwordValue === "") {
+          // 如果有任一输入框为空，显示相应的错误提示
+          if (usernameValue === "") {
+            setErrorFor(username, "用户名不能为空", "sml1");
+          } else {
+            setSuccessFor(username, "sml1");
+          }
+
+          if (passwordValue === "") {
+            setErrorFor(password, "密码不能为空", "sml2");
+          } else {
+            setSuccessFor(password, "sml2");
+          }
+        } else {
+          const userExists = usrData.find(user => user.username === usernameValue && user.password === passwordValue);
+
+          if (userExists) {
+            // 更新所有用户的 logSta 值为 0
+            usrData.forEach(user => {
+              if (user.username !== usernameValue) {
+                updateUser(user.userid, { logSta: 0 });
+              }
+            });
+            const userId = userExists.userid;
+            updateUser(userId, { logSta: 1 });
+
+            localStorage.setItem("lg_user", JSON.stringify(usernameValue));
+            localStorage.setItem("lg_password", JSON.stringify(passwordValue));
+            window.location.href = "index.html";
+          } else {
+            setErrorFor(username, "用户名或密码不正确，请重新输入", "sml1");
+            setErrorFor(password, "用户名或密码不正确，请重新输入", "sml2");
+          }
+        }
+      }
+
+      // 当输入验证失败时设置错误状态的函数
+      function setErrorFor(input, message, id) {
+        const formControl = input.parentElement.parentElement;
+        // 设置表单控件的类，以显示错误状态
+        formControl.className = "form-group error";
+        // 获取小提示元素并设置错误信息
+        const small = formControl.querySelector("small");
+        small.innerText = message;
+        // 显示错误提示
+        document.getElementById(id).style.visibility = "visible";
+        // 移除成功状态，添加错误状态
+        formControl.classList.remove("success");
+        formControl.classList.add("error");
+      }
+
+      // 当输入验证成功时设置成功状态的函数
+      function setSuccessFor(input, id) {
+        const formControl = input.parentElement.parentElement;
+        // 设置表单控件的类，以显示成功状态
+        formControl.className = "form-group success";
+        // 获取小提示元素并清空错误信息
+        const small = formControl.querySelector("small");
+        small.innerText = "";
+        // 隐藏错误提示
+        document.getElementById(id).style.visibility = "hidden";
+        // 移除错误状态，添加成功状态
+        formControl.classList.remove("error");
+        formControl.classList.add("success");
+      }
+
+      function getUsrData() {
+        const userData = localStorage.getItem("usrData");
+        return userData ? JSON.parse(userData) : [];
+      }
+
+      function updateUser(userId, updateData) {
+        const usrData = getUsrData();
+        const updatedUsers = usrData.map(user => {
+          if (user.userid === userId) {
+            return { ...user, ...updateData };
+          }
+          return user;
         });
-
-        // 验证表单输入的函数
-        function checkInputs() {
-            // 获取用户名和密码输入框元素
-            const username = document.getElementById("exampleInputEmail1");
-            const password = document.getElementById("password");
-
-            // 获取输入框的值并去除首尾空格
-            const usernameValue = username.value.trim();
-            const passwordValue = password.value.trim();
-
-            // 验证用户名和密码是否为空
-            if (usernameValue === "" || passwordValue === "") {
-                // 如果有任一输入框为空，显示相应的错误提示
-                if (usernameValue === "") {
-                    setErrorFor(username, "用户名不能为空", "sml1");
-                } else {
-                    setSuccessFor(username, "sml1");
-                }
-
-                if (passwordValue === "") {
-                    setErrorFor(password, "密码不能为空", "sml2");
-                } else {
-                    setSuccessFor(password, "sml2");
-                }
-            } else {
-                // 如果有任一输入框为空，显示相应的错误提示
-                if (usernameValue != "admin") {
-                    setErrorFor(username, "用户名不正确，请重新输入", "sml1");
-                } else {
-                    setSuccessFor(username, "sml1");
-                }
-
-                if (passwordValue != "pw123456") {
-                    setErrorFor(password, "密码不正确，请重新输入", "sml2");
-                } else {
-                    setSuccessFor(password, "sml2");
-                }
-                // 如果用户名和密码均不为空，验证成功，跳转到index.html页面
-                if(usernameValue == "admin" && passwordValue == "pw123456") {
-                    window.location.href = "index.html";
-                }
-
-            }
-        }
-
-        // 当输入验证失败时设置错误状态的函数
-        function setErrorFor(input, message, id) {
-            const formControl = input.parentElement.parentElement;
-            // 设置表单控件的类，以显示错误状态
-            formControl.className = "form-group error";
-            // 获取小提示元素并设置错误信息
-            const small = formControl.querySelector("small");
-            small.innerText = message;
-            // 显示错误提示
-            document.getElementById(id).style.visibility = "visible";
-            // 移除成功状态，添加错误状态
-            formControl.classList.remove("success");
-            formControl.classList.add("error");
-        }
-
-        // 当输入验证成功时设置成功状态的函数
-        function setSuccessFor(input, id) {
-            const formControl = input.parentElement.parentElement;
-            // 设置表单控件的类，以显示成功状态
-            formControl.className = "form-group success";
-            // 获取小提示元素并清空错误信息 
-            const small = formControl.querySelector("small");
-            small.innerText = "";
-            // 隐藏错误提示
-            document.getElementById(id).style.visibility = "hidden";
-            // 移除错误状态，添加成功状态
-            formControl.classList.remove("error");
-            formControl.classList.add("success");
-        }
+        localStorage.setItem("usrData", JSON.stringify(updatedUsers));
+      }
     });
-</script>
+
+    // 获取注册按钮元素
+    const registerBtn = document.getElementById("registerBtn");
+    // 监听注册按钮的点击事件
+    registerBtn.addEventListener("click", function () {
+      // 跳转到 register.html 页面
+      window.location.href = "register.html";
+    });
+  </script>
 </body>
 
 </html>

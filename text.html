@@ -1,232 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <style>
-    body, html {
-      height: 100%;
-      margin: 0;  /* 去除默认的外边距 */
-      background-color: burlywood;
-      display: flex;
-      flex-direction: column;
-    }
-    .idx{
-      display: flex;
-      flex: 1;
-      flex-direction: column;
-      width: 100%;
-      background-color: darkgray;
-    }
-    .index_headr{
-      width: 100%;
-      height: 100px;
-      background-color :aquamarine;
-    }
-    .index_bodyr{
-      flex: 1;
-      width: 100%;
-      height: calc(100% - 200px); /* 使用 calc() 函数进行计算 */
-      background-color: red;
-    }
-    .index_footr{
-        width: 100%;
-        height: 100px;
-        background-color: rgb(88, 60, 27);
-    }
-    .ind_Carousel{
-      overflow: hidden;
-
-      position: relative;
-      width: 100%;
-      height: 300px;
-      background-color: gold;
-      padding: 19px 0 0 0;
-    }
-    .indx_Crptc{
-      width: 80%;
-      height: 280px;
-      position: absolute;
-      background-color: aqua;
-      margin: 0 auto;
-    }
-    .indx_Crptcl_item{
-      animation: scroll 15s linear infinite;
-      display: inline-block;
-      margin: 0 20px 0 20px;
-      box-sizing: border-box;
-    }
-    .idx_theme{
-        width: 80%;
-        padding: 30px 0 0 0;
-        display: flex;
-        color: cyan;
-        flex-wrap: wrap;
-        justify-content: center;
-        background-color: darkorchid;
-        margin: 0 auto; /* 水平居中 */
-    }
-    .idx-theme-item {
-      width: 350px; 
-      margin: 10px;
-      text-align: center;
-      border: 1px solid #ddd; /* 边框样式 */
-      padding: 10px;
-    }
-    #carousel-container {
-      width: 100%;
-      overflow: hidden;
-    }
-
-    /* #carousel {
-      white-space: nowrap;
-      animation: scroll 20s linear infinite;
-    } */
-    @keyframes scroll {
-      0% {
-        transform: translateX(100%);
-        }
-      100% {
-        transform: translateX(-100%);
-        }
-    }
-  </style>
+  <title>社区任务</title>
 </head>
+
 <body>
-    <div class="idx">
-      <div class="index_headr">1</div>
-      <div class="index_bodyr">
-        <div class="ind_Carousel">
-          <div class="indx_Crptc" id="indx_Crptc">轮播图</div>
-        </div>
-        <!-- 列表数组 -->
-        <div class="idx_theme" id="idx-themeContainer"></div>
-      </div>
-      <div class="index_footr">3</div>
-    </div>
+  <h1>社区任务</h1>
+  <button id="dailyCheckIn">每日签到</button>
+  <button id="weeklyCheckIn">每周签到</button>
 
-    <script>
-        // 定义视频数据数组
-        var videoData = [
-            // 添加更多视频信息
-          { title: 'Apex', imageUrl: 'imgs/apex.jpg', link: 'page1.html' },
-          { title: '堡垒之夜', imageUrl: 'imgs/baoleizhiye.jpg', link: 'page2.html' },
-          { title: 'CSGO', imageUrl: 'imgs/csgo.jpg', link: 'page3.html' },
-          { title: '刀塔2', imageUrl: 'imgs/daota.jpg', link: 'page3.html' },
-          { title: '剑网3', imageUrl: 'imgs/jianwnag3.jpg', link: 'page3.html' },
-          { title: '艾尔登法环', imageUrl: 'imgs/laotouhuan.jpg', link: 'page3.html' },
-          { title: '英雄联盟手游', imageUrl: 'imgs/lolMtupian.jpg', link: 'page3.html' },
-          { title: '英雄联盟', imageUrl: 'imgs/lolPCtupian.jpg', link: 'page3.html' },
-          { title: '炉石传说', imageUrl: 'imgs/lushichuanshuo.jpg', link: 'page3.html' },
-          { title: '逆水寒', imageUrl: 'imgs/nishuihan.jpg', link: 'page3.html' },
-          { title: '上古卷轴', imageUrl: 'imgs/shanggujuanzhou.jpg', link: 'page3.html' },
-          { title: '守望先锋', imageUrl: 'imgs/shouwangxianfeng.jpg', link: 'page3.html' },
-          { title: '星际战甲', imageUrl: 'imgs/zhanjia.jpg', link: 'page3.html' },
-          { title: '原神', imageUrl: 'imgs/yuanshen.jpg', link: 'page3.html' },
-          { title: '怪物猎人', imageUrl: 'imgs/guanwulieren.jpg', link: 'page3.html' }
-        ];
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // 获取存储的用户信息
+      const userData = JSON.parse(localStorage.getItem('userData')) || [];
 
-          // 复制前几项到末尾以实现循环
-        var numberOfItemsToDuplicate = 3;
-        videoData = videoData.concat(videoData.slice(0, numberOfItemsToDuplicate));
+      // 获取签到按钮
+      const dailyCheckInBtn = document.getElementById('dailyCheckIn');
+      const weeklyCheckInBtn = document.getElementById('weeklyCheckIn');
 
-        // 动态生成轮播项
-        var carouselContainer = document.getElementById('indx_Crptc');
-        videoData.forEach(function (video) {
-          var item = document.createElement('div');
-          item.className = 'indx_Crptcl_item';
-          var as = document.createElement('a');
-          as.href = video.link;
-          var imgs = document.createElement('img');
-          imgs.src = video.imageUrl;
-          imgs.alt = video.title;
-          imgs.style.height = '250px';
-          imgs.style.width = '345px';
-          as.appendChild(imgs);
-          item.appendChild(as);
-          carouselContainer.appendChild(item);
+      // 模拟已登录用户
+      const loggedInUser = userData.find(user => user.logSta === 1);
+
+      if (loggedInUser) {
+        // 获取当前时间
+        const currentDate = new Date().getDate();
+
+        dailyCheckInBtn.addEventListener('click', function () {
+          if (loggedInUser.lastDailyCheckIn !== currentDate) {
+            loggedInUser.integralnub += 5;
+            loggedInUser.lastDailyCheckIn = currentDate;
+            updateLocalStorage(userData);
+            alert('每日签到成功！积分增加5');
+          } else {
+            alert('今天已经签到过了！');
+          }
         });
 
-        // 添加轮播逻辑
-        var currentIndex = 0;
-        var totalItems = videoData.length;
-        var itemsPerPage = 3; // 根据想要一次显示的项目数量调整此值
-
-        function nextSlide() {
-          currentIndex = (currentIndex + itemsPerPage) % totalItems;
-          updateCarousel();
-        }
-
-        function prevSlide() {
-          currentIndex = (currentIndex - itemsPerPage + totalItems) % totalItems;
-          updateCarousel();
-        }
-
-        function updateCarousel() {
-          var items = document.querySelectorAll('.indx_Crptcl_item');
-          items.forEach(function (item, index) {
-            var newIndex = (currentIndex + index) % totalItems;
-            var video = videoData[newIndex];
-            var as = item.querySelector('a');
-            var imgs = as.querySelector('img');
-            as.href = video.link;
-            imgs.src = video.imageUrl;
-            imgs.alt = video.title;
-          });
-        }
-
-        // 添加定时器以自动播放
-        var autoplayInterval = 3000; // 设置自动播放间隔时间，单位为毫秒
-        var autoplayTimer = setInterval(nextSlide, autoplayInterval);
-
-        // 停止自动播放的方法
-        function stopAutoplay() {
-          clearInterval(autoplayTimer);
-        }
-
-        // 当鼠标悬停在轮播图上时停止自动播放
-        carouselContainer.addEventListener('mouseenter', stopAutoplay);
-
-        // 当鼠标离开轮播图时恢复自动播放
-        carouselContainer.addEventListener('mouseleave', function () {
-          autoplayTimer = setInterval(nextSlide, autoplayInterval);
+        weeklyCheckInBtn.addEventListener('click', function () {
+          if (loggedInUser.lastWeeklyCheckIn !== currentDate) {
+            loggedInUser.integralnub += 15;
+            loggedInUser.lastWeeklyCheckIn = currentDate;
+            updateLocalStorage(userData);
+            alert('每周签到成功！积分增加15');
+          } else {
+            alert('本周已经签到过了！');
+          }
         });
+      } else {
+        alert('请先登录！');
+        // 如果用户未登录，可进行登录跳转等操作
+      });
 
-
-        // 获取存储视频元素的容器
-        var idx_themeContainer = document.getElementById('idx-themeContainer');
-      
-        // 遍历视频数据数组
-        videoData.forEach(function(video) {
-          // 创建视频元素
-          var videoElement = document.createElement('div');
-          videoElement.className = 'idx-theme-item';
-      
-          
-          // 创建图片元素
-          var imageElement = document.createElement('img');
-          imageElement.src = video.imageUrl;
-          imageElement.alt = video.title;
-          imageElement.style.height = "250px";
-          imageElement.style.width = "345px";
-
-          // 创建标题元素
-          var titleElement = document.createElement('h3');
-          titleElement.textContent = video.title;
-          
-          // 将标题和图片元素添加到视频元素中
-          videoElement.appendChild(imageElement);
-          videoElement.appendChild(titleElement);
-      
-          // 为视频元素添加点击事件，实现页面跳转
-          videoElement.addEventListener('click', function() {
-            window.location.href = video.link;
-          });
-      
-          // 将视频元素添加到容器中
-          idx_themeContainer.appendChild(videoElement);
-        });
-      </script>
+      // 更新本地存储的用户数据
+      function updateLocalStorage(data) {
+        localStorage.setItem('userData', JSON.stringify(data));
+      }
+    </script>
 </body>
+
 </html>
