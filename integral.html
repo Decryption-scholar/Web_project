@@ -4,49 +4,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
     <title>社区任务</title>
     <style>
         b {
             font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        h1{
+            margin-left: 50px;
+        }
+        .badyer {
+            display: flex;
+            background-color: aqua;
+            justify-content: space-around;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .mission,
+        .intbox {
+            width: 48%;
+            background-color: #2ed;
+            margin: 5px;
         }
 
-        .badyer {
-            flex: 1;
-            width: 100%;
-            height: calc(100% - 200px);
-            /* 使用 calc() 函数进行计算 */
-            background-color: red;
+        .mission {
+            height: 260px;
+            width: 48%;
+            margin: 5px 0 0 10px;
+            text-align: left;
+        }
+
+        span {
+            margin-left: 2em;
+        }
+        hr{
+            border: 1px dashed  rgb(211, 151, 30);
+            width: 95%;
         }
     </style>
 </head>
 
 <body>
-    <h1>社区任务</h1>
-    <div class="badyer">
-        <div class="mission">
-            <b>1.新任务选择</b>
-            <br>
-            "选择你要进行的任务项目"
-            <b>2.进行中任务</b>
-            <br>
-            "在进行中任务项目,按期限及规定完成后可以领取奖励"
-            <b>3.已完成任务</b>
-            <br>
-            "领取完成奖励,会出现你已领取完成"
-            <b>4.已失败任务</b>
-            <br>
-            "按期限及规定未完成任务,就显示你未完成任务项目"
-        </div>
-        <div class="intbox">
-            <div class="signbox">
-                <img src="imgs/day.png">
-                <p>每日SP+5的日常。</p>
-                <button id="daysign">每日签到</button>
+    <div class="bady_box">
+
+        <h1>社区任务</h1>
+        <div class="badyer">
+            <div class="mission">
+                <b>1.新任务选择</b>
+                <br>
+                <span>
+                    选择你要进行的任务项目
+                </span>
+                <hr>
+                <b>2.进行中任务</b>
+                <br>
+                <span>
+                    在进行中任务项目,按期限及规定完成后可以领取奖励
+                </span>
+                <hr>
+                <b>3.已完成任务</b>
+                <br>
+                <span>
+                    领取完成奖励,会出现你已领取完成
+                </span>
+                <hr>
+                <b>4.已失败任务</b>
+                <br>
+                <span>
+                    按期限及规定未完成任务,就显示你未完成任务项目
+                </span>
+                <hr>
             </div>
-            <div class="signbox">
-                <img src="imgs/week.png">
-                <p>无所事事的周常</p>
-                <button id="weeksign">每周签到</button>
+            <div class="intbox">
+                <div class="signbox">
+                    <img src="imgs/day.png">
+                    <p>每日SP+5的日常。</p>
+                    <button id="daysign">每日签到</button>
+                </div>
+                <hr>
+                <div class="signbox">
+                    <img src="imgs/week.png">
+                    <p>无所事事的周常</p>
+                    <button id="weeksign">每周签到</button>
+                </div>
             </div>
         </div>
     </div>
@@ -88,7 +130,7 @@
                         alert('本周已经签到过了！');
                     }
                 });
-            } else{
+            } else {
                 alert('请先登录！');
                 // 如果用户未登录，可进行登录跳转等操作
             }

@@ -16,7 +16,7 @@ body {
   height: 100vh;
 }
 
-.box_lg {
+.box_lg ,.personInf_box{
   display: flex;
   flex-direction: column;
   place-items: center;

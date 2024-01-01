@@ -5,73 +5,171 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>个人信息</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/form.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .personInf_box {
+            width: 500px;
+            height: 700px;
+            margin: 50px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            color: #5fc4ae;
+            text-align: center;
+        }
+
+        #avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 10px 0;
+        }
+
+        #avatarInput {
+            margin-top: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #333;
+            margin: 5px 0;
+        }
+
+        span {
+            font-weight: bold;
+            color: #5fc4ae;
+        }
+
+        .upnew {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+
+        .upnew div {
+            margin-bottom: 15px;
+        }
+
+        input,
+        button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #5fc4ae;
+            text-align: center;
+            color: #fff;
+            height: 35px;
+            margin: 5px 5px 5px 5px;
+            cursor: pointer;
+        }
+
+        #changePassword {
+            height: 35px;
+        }
+
+        button:hover {
+            background-color: #4aae9b;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="profile">
-        <div class="profile-header">
+    <div class="personInf_box">
+        <div class="pers_hader">
             <h2>个人信息</h2>
             <!-- 头像显示 -->
             <img id="avatar" src="" alt="Avatar">
+            <p>更改头像</p>
             <input type="file" id="avatarInput">
         </div>
-        <div class="profile-details">
+        <div class="prof_show">
             <!-- 显示用户信息 -->
             <p>用户名: <span id="username"></span></p>
             <p>邮箱: <span id="email"></span></p>
             <p>积分: <span id="points"></span></p>
             <p>最后登录时间: <span id="lastLoginTime"></span></p>
         </div>
-        <div class="change-section">
+        <div class="upnew">
             <!-- 更改用户名 -->
-            <input type="text" id="newUsername" placeholder="新用户名">
-            <button id="changeUsername">更改用户名</button>
+            <input type="text" id="newname" placeholder="新用户名">
+            <button id="changename">更改用户名</button>
             <!-- 更改密码 -->
             <input type="password" id="oldPassword" placeholder="旧密码">
             <input type="password" id="newPassword" placeholder="新密码">
-            <input type="password" id="confirmNewPassword" placeholder="确认新密码">
+            <input type="password" id="rePassword" placeholder="确认新密码">
             <button id="changePassword">更改密码</button>
         </div>
     </div>
+    </div>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // 获取已登录用户信息
-            const loggedInUser = JSON.parse(localStorage.getItem('usrData'));
-            console.log(localStorage.getItem('loggedInUser'))
-            // 填充用户信息到页面
-            document.getElementById('avatar').src = loggedInUser.avatar;
-            document.getElementById('username').innerText = loggedInUser.username;
-            document.getElementById('email').innerText = loggedInUser.email;
-            document.getElementById('points').innerText = loggedInUser.integralnub;
-            document.getElementById('lastLoginTime').innerText = loggedInUser.lastLoginTime;
+            const users = JSON.parse(localStorage.getItem('usrData')) || [];
+            const discussData = JSON.parse(localStorage.getItem('discuss')) || [];
+            const logInUser = users.find(user => user.logSta === 1);
 
-            // 更改用户名
-            document.getElementById('changeUsername').addEventListener('click', function () {
-                const newUsername = document.getElementById('newUsername').value;
-                // 更新本地存储的用户名
-                loggedInUser.username = newUsername;
-                localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
-                // 更新页面显示
-                document.getElementById('username').innerText = newUsername;
-                document.getElementById('newUsername').value = '';
-            });
+            // 填充用户信息到页面
+            if (logInUser) {
+                document.getElementById('avatar').src = logInUser.avatar;
+                document.getElementById('username').innerText = logInUser.username;
+                document.getElementById('email').innerText = logInUser.email;
+                document.getElementById('points').innerText = logInUser.integralnub;
+                document.getElementById('lastLoginTime').innerText = logInUser.lastLoginTime;
+
+                // 更改用户名
+                document.getElementById('changename').addEventListener('click', function () {
+                    const newname = document.getElementById('newname').value;
+                    // 更新本地存储的用户名
+                    logInUser.username = newname;
+                    localStorage.setItem('usrData', JSON.stringify(users));
+                    discussData.forEach(message => {
+                        if (message.userid === logInUser.userid) {
+                            message.username = newname;
+                        }
+                    });
+                    localStorage.setItem('discuss', JSON.stringify(discussData));
+                    // 更新页面显示
+                    document.getElementById('username').innerText = newname;
+                    document.getElementById('newname').value = '';
+                });
+            } else {
+                alert('请登录并返回登录页面');
+                window.location.href = 'login.html';
+            }
 
             // 更改密码
             document.getElementById('changePassword').addEventListener('click', function () {
                 const oldPassword = document.getElementById('oldPassword').value;
                 const newPassword = document.getElementById('newPassword').value;
-                const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+                const rePassword = document.getElementById('rePassword').value;
 
                 // 检查旧密码是否正确
-                if (oldPassword === loggedInUser.password && newPassword === confirmNewPassword) {
+                if (oldPassword === logInUser.password && newPassword === rePassword) {
                     // 更新本地存储的密码
-                    loggedInUser.password = newPassword;
-                    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+                    logInUser.password = newPassword;
+                    localStorage.setItem('usrData', JSON.stringify(users));
                     // 清空输入框
                     document.getElementById('oldPassword').value = '';
                     document.getElementById('newPassword').value = '';
-                    document.getElementById('confirmNewPassword').value = '';
+                    document.getElementById('rePassword').value = '';
                     alert('密码更改成功！');
                 } else {
                     alert('旧密码错误或新密码不匹配！');
@@ -81,20 +179,29 @@
             // 更改头像
             document.getElementById('avatarInput').addEventListener('change', function (event) {
                 const file = event.target.files[0];
-                const reader = new FileReader();
 
-                reader.onload = function (e) {
-                    // 更新本地存储的头像
-                    loggedInUser.avatar = e.target.result;
-                    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
-                    // 更新页面显示
-                    document.getElementById('avatar').src = e.target.result;
-                };
+                if (file) {
+                    const reader = new FileReader();
 
-                reader.readAsDataURL(file);
+                    reader.onload = function (e) {
+                        // 保存 Data URL 到用户数组
+                        logInUser.avatar = e.target.result;
+                        localStorage.setItem('usrData', JSON.stringify(users));
+                        discussData.forEach(message => {
+                        if (message.userid === logInUser.userid) {
+                            message.avatar = e.target.result;
+                        }
+                    });
+                    localStorage.setItem('discuss', JSON.stringify(discussData));
+                        // 显示图片预览
+                        document.getElementById('avatar').src = e.target.result;
+                    };
+
+                    // 读取文件内容并转换为 Data URL
+                    reader.readAsDataURL(file);
+                }
             });
         });
-
     </script>
 </body>
 

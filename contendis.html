@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>发言框</title>
+  <style>
+    body {
+      height: 500px;
+      overflow: hidden;
+    }
+
+    #messages {
+      height: 500px;
+      width: 700px;
+      overflow-y: auto;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+
+    .avatar {
+      width: 70px;
+      height: 70px;
+      background-color: rgb(151, 189, 53);
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+
+    .disbox {
+      border: 1px solid #b972cb;
+      height: 100px;
+      width: 100px;
+      background-color: #774e8b;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .disbodybox {
+      width: 70%;
+      margin: 0 auto;
+    }
+
+    .message {
+      display: flex;
+      align-items: center;
+      border: 1px solid #deb8b8;
+      margin: 2px 2px;
+      background-color: #b5d08f;
+      padding: 2px 2px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="messages"></div>
+  <script>
+    const Messages = document.getElementById('messages');
+    function loadDiscussion() {
+      const discussData = JSON.parse(localStorage.getItem('discuss')) || [];
+      discussData.forEach(message => {
+        appendMessage(message.username, message.avatar, message.text);
+      });
+      Messages.scrollTop = Messages.scrollHeight;
+    }
+    loadDiscussion();
+
+    function appendMessage(username, avatar, text) {
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('message');
+      messageElement.innerHTML = `<div class="disbox"><img src="${avatar}" alt="${username}" class="avatar"><strong>${username}:</strong></div> ${text}`;
+      Messages.appendChild(messageElement);
+      Messages.scrollTop = Messages.scrollHeight;
+    }
+    function saveMessage(userid, username, avatar, text) {
+      const message = {
+        userid,
+        username,
+        avatar,
+        text
+      };
+
+      const discussData = JSON.parse(localStorage.getItem('discuss')) || [];
+      discussData.push(message);
+      localStorage.setItem('discuss', JSON.stringify(discussData));
+
+      appendMessage(username, avatar, text);
+    }
+  </script>
+</body>
+
+</html>
