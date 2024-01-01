@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/form.css">
+    <title>讨论区</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            max-width: 700px;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+
+        .disbodybox {
+            width: 800px;
+            height: 650px;
+            margin: 0 auto;
+            background-color: azure;
+        }
+
+        #userinput {
+            margin: 0 auto;
+            width: 600px;
+            margin-top: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        #messageinput {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        #sendbutton {
+            padding: 10px;
+            border: 1px solid #4aae9b;
+            border-radius: 5px;
+            background-color: #4aae9b;
+            color: #fff;
+            cursor: pointer;
+        }
+
+
+        #iframebody {
+            height: 400px;
+            width: 700px;
+        }
+    </style>
+</head>
+
+<body id="bgimgdis">
+    <div class="disbodybox">
+        <div id="container">
+            <iframe id="iframebody" src="contendis.html" frameborder="0"></iframe>
+        </div>
+        <div id="userinput">
+            <input type="text" id="messageinput" placeholder="">
+            <button id="sendbutton">提交</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const bgimgdis = document.getElementById('bgimgdis');
+            const messageInput = document.getElementById('messageinput');
+            const sendButton = document.getElementById('sendbutton');
+            const usrData = JSON.parse(localStorage.getItem('usrData')) || [];
+            const logInUser = usrData.find(user => user.logSta === 1);
+
+            if (!logInUser) {
+                alert('请登录!');
+                return;
+            }
+
+            function saveMessage(userid, username, avatar, text) {
+                const message = {
+                    userid,
+                    username,
+                    avatar,
+                    text
+                };
+
+                const discussData = JSON.parse(localStorage.getItem('discuss')) || [];
+                discussData.push(message);
+                localStorage.setItem('discuss', JSON.stringify(discussData));
+
+            }
+
+            sendButton.addEventListener('click', function () {
+                const messageText = messageInput.value.trim();
+
+                if (messageText !== "") {
+                    saveMessage(logInUser.userid, logInUser.username, logInUser.avatar, messageText);
+                    messageInput.value = "";
+                    const iframebody = document.getElementById('iframebody');
+                    iframebody.src = 'contendis.html';
+                }
+            });
+
+        });
+
+    </script>
+</body>
+
+</html>

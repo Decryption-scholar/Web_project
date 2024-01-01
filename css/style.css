@@ -31,11 +31,19 @@ html {
 }
 
 .index_footr {
+  text-align: center;
+  font-size: 40px;
   width: 100%;
   height: 100px;
+  color: #a82062;
   background-color: rgb(88, 60, 27);
 }
-
+.index_footr a{
+  margin: 0 30px 0 30px;
+}
+.index_footr a:hover{
+ color: #22d79b;
+}
 .ind_Carousel {
   width: 100%;
   height: 380px;
