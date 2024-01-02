@@ -70,7 +70,7 @@
             avatar: 'imgs/1587867978110.jpeg',
             logSta: 0,
             integralnub: 0,
-            lastLoginTime:'0'
+            lastLoginTime: '0'
           }
         ];
       }
@@ -127,8 +127,9 @@
               }
             });
             const userId = userExists.userid;
-            const iogtime =getTime();
-            updateUser(userId, { logSta: 1 ,lastLoginTime:iogtime});
+            const iogtime = getTime();
+            updateUser(userId, { logSta: 1 });
+            updateUser(userId, { lastLoginTime: iogtime });
 
             localStorage.setItem("lg_user", JSON.stringify(usernameValue));
             localStorage.setItem("lg_password", JSON.stringify(passwordValue));
@@ -175,14 +176,17 @@
         return userData ? JSON.parse(userData) : [];
       }
       //获取时间
-      function getTime() {  
-            var now = new Date();  
-            var year = now.getFullYear();  
-            var month = now.getMonth() + 1;
-            var day = now.getDate();  
-            var time = year + '-' + month + '-' + day;  
-            return time;  
-        }  
+      function getTime() {
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = now.getMonth() + 1;
+        var day = now.getDate();
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        let seconds = now.getSeconds();
+        var time = year + '-' + month + '-' + day+ ' ' + hours + ':' + minutes+ ':' + seconds ;
+        return time;
+      }
       function updateUser(userId, updateData) {
         const usrData = getUsrData();
         const updatedUsers = usrData.map(user => {

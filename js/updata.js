@@ -4,10 +4,11 @@ function UpdUserInfo(pageUrl) {
     const logInUser = usrData.find(user => user.logSta === 1);
     const quitLinks = document.querySelectorAll('.quit');
     const usernmtx = document.getElementById('Username');
+    const personin = document.getElementById('personin');
 
     if (logInUser) {
       usernmtx.innerText = logInUser.username;
-
+      personin.style.display = 'block';
       quitLinks.forEach(link => {
         link.textContent = '退出';
         link.addEventListener('click', function (event) {
@@ -23,7 +24,7 @@ function UpdUserInfo(pageUrl) {
       });
     } else {
       usernmtx.innerText = '未登录';
-
+      personin.style.display = 'none';
       quitLinks.forEach(link => {
         link.textContent = '登录';
         link.addEventListener('click', function (event) {

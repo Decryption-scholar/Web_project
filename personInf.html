@@ -182,17 +182,17 @@
 
                 if (file) {
                     const reader = new FileReader();
-
+                    
                     reader.onload = function (e) {
                         // 保存 Data URL 到用户数组
                         logInUser.avatar = e.target.result;
                         localStorage.setItem('usrData', JSON.stringify(users));
                         discussData.forEach(message => {
-                        if (message.userid === logInUser.userid) {
-                            message.avatar = e.target.result;
-                        }
-                    });
-                    localStorage.setItem('discuss', JSON.stringify(discussData));
+                            if (message.userid === logInUser.userid) {
+                                message.avatar = e.target.result;
+                            }
+                        });
+                        localStorage.setItem('discuss', JSON.stringify(discussData));
                         // 显示图片预览
                         document.getElementById('avatar').src = e.target.result;
                     };
