@@ -3,7 +3,11 @@
   font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica,
     Microsoft YaHei, PingFang SC, Hiragino Sans GB, Arial, sans-serif;
 }
-
+#box_lg_tit{
+  color: #c978c2;
+  font-size: medium;
+font-size: 30px;
+}
 body {
   /* 使用背景图 */
   background-image: url("../imgs/tp_login.jpeg");
